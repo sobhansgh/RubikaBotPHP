@@ -10,6 +10,8 @@ use Sobhansgh\Rubikabotphp\Types\Message;
 use Sobhansgh\Rubikabotphp\Types\Photo;
 use Sobhansgh\Rubikabotphp\Types\Video;
 use Sobhansgh\Rubikabotphp\Types\Voice;
+use Sobhansgh\Rubikabotphp\Webhook\Webhook;
+use Sobhansgh\Rubikabotphp\Router\Router;
 
 class Rubika
 {
@@ -65,6 +67,23 @@ class Rubika
         );
 
     }
+
+    protected ?Router $router = null;
+
+    public function router(): Router
+    {
+        if (!$this->router) {
+            $this->router = new Router();
+        }
+
+        return $this->router;
+    }
+
+    public function webhook(): Webhook
+    {
+        return new Webhook($this);
+    }
+
     public function send(Message|array $message): Response
     {
         return $this->client->send(
