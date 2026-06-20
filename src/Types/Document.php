@@ -2,11 +2,15 @@
 
 namespace Sobhansgh\Rubikabotphp\Types;
 
+use Sobhansgh\Rubikabotphp\File\InputFile;
+
 class Document extends BaseType
 {
-    public function file(string $file): static
+    public function file(
+        string|InputFile $photo
+    ): static
     {
-        $this->data['document'] = $file;
+        $this->data['document'] = $photo;
 
         return $this;
     }

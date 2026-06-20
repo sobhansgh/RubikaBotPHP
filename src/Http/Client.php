@@ -24,23 +24,37 @@ class Client
 
         $curl = curl_init($url);
 
+        $hasFile = false;
+
+        foreach ($params as $key => $value) {
+
+            if ($value instanceof \Sobhansgh\Rubikabotphp\File\InputFile) {
+
+                $params[$key] = $value->getCurlFile();
+
+                $hasFile = true;
+            }
+        }
         curl_setopt_array($curl, [
-
             CURLOPT_RETURNTRANSFER => true,
-
             CURLOPT_POST => true,
-
             CURLOPT_TIMEOUT => $this->timeout,
-
-            CURLOPT_HTTPHEADER => [
-
-                "Content-Type: application/json"
-
-            ],
-
-            CURLOPT_POSTFIELDS => json_encode($params)
-
         ]);
+        if ($hasFile) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+        } else {
+
+            curl_setopt($curl, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json'
+            ]);
+
+            curl_setopt(
+                $curl,
+                CURLOPT_POSTFIELDS,
+                json_encode($params)
+            );
+
+        }
 
         $response = curl_exec($curl);
 

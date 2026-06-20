@@ -1,12 +1,15 @@
 <?php
 
 namespace Sobhansgh\Rubikabotphp\Types;
+use Sobhansgh\Rubikabotphp\File\InputFile;
 
 class Video extends BaseType
 {
-    public function file(string $file): static
+    public function file(
+        string|InputFile $photo
+    ): static
     {
-        $this->data['video'] = $file;
+        $this->data['video'] = $photo;
 
         return $this;
     }

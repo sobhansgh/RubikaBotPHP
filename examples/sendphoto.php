@@ -2,16 +2,20 @@
 
 require 'vendor/autoload.php';
 
-use Sobhansgh\Rubikabotphp\Rubika;
+use Sobhansgh\Rubikabotphp\File\InputFile;
+use Sobhansgh\Rubikabotphp\Types\Photo;
 
-$bot = new Rubika('token');
+$bot->sendPhoto(
 
-$response = $bot->sendPhoto([
-    'chat_id'=>'...',
-    'file'=>'photo.jpg'
-]);
+    Photo::make()
 
-if($response->success())
-{
-    echo "Done";
-}
+        ->chat($chatId)
+
+        ->file(
+
+            InputFile::make(
+                'photo.jpg'
+            )
+        )
+
+);

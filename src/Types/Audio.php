@@ -1,16 +1,16 @@
 <?php
 
 namespace Sobhansgh\Rubikabotphp\Types;
+
 use Sobhansgh\Rubikabotphp\File\InputFile;
 
-class Photo extends BaseType
+class Audio extends BaseType
 {
-
     public function file(
         string|InputFile $photo
     ): static
     {
-        $this->data['photo'] = $photo;
+        $this->data['audio'] = $photo;
 
         return $this;
     }

@@ -1,12 +1,14 @@
 <?php
 
 namespace Sobhansgh\Rubikabotphp\Types;
-
+use Sobhansgh\Rubikabotphp\File\InputFile;
 class Voice extends BaseType
 {
-    public function file(string $file): static
+    public function file(
+        string|InputFile $photo
+    ): static
     {
-        $this->data['voice'] = $file;
+        $this->data['voice'] = $photo;
 
         return $this;
     }
