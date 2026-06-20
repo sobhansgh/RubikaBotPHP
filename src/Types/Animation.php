@@ -4,11 +4,11 @@ namespace Sobhansgh\Rubikabotphp\Types;
 
 use Sobhansgh\Rubikabotphp\File\InputFile;
 
-class Audio extends BaseType
+class Animation extends BaseType
 {
-    public function file(string|InputFile $audio): static
+    public function file(string|InputFile $animation): static
     {
-        $this->data['audio'] = $audio;
+        $this->data['animation'] = $animation;
 
         return $this;
     }
@@ -23,20 +23,6 @@ class Audio extends BaseType
     public function duration(int $seconds): static
     {
         $this->data['duration'] = $seconds;
-
-        return $this;
-    }
-
-    public function performer(string $performer): static
-    {
-        $this->data['performer'] = $performer;
-
-        return $this;
-    }
-
-    public function title(string $title): static
-    {
-        $this->data['title'] = $title;
 
         return $this;
     }

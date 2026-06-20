@@ -5,10 +5,15 @@ namespace Sobhansgh\Rubikabotphp;
 use BadMethodCallException;
 use Sobhansgh\Rubikabotphp\Http\Client;
 use Sobhansgh\Rubikabotphp\Http\Response;
+use Sobhansgh\Rubikabotphp\Types\Animation;
+use Sobhansgh\Rubikabotphp\Types\Audio;
 use Sobhansgh\Rubikabotphp\Types\Document;
 use Sobhansgh\Rubikabotphp\Types\Message;
 use Sobhansgh\Rubikabotphp\Types\Photo;
+use Sobhansgh\Rubikabotphp\Types\Poll;
+use Sobhansgh\Rubikabotphp\Types\Sticker;
 use Sobhansgh\Rubikabotphp\Types\Video;
+use Sobhansgh\Rubikabotphp\Types\VideoNote;
 use Sobhansgh\Rubikabotphp\Types\Voice;
 use Sobhansgh\Rubikabotphp\Webhook\Webhook;
 use Sobhansgh\Rubikabotphp\Router\Router;
@@ -84,12 +89,32 @@ class Rubika
         return new Webhook($this);
     }
 
-    public function send(Message|array $message): Response
+    public function sendMessage(Message|array $message): Response
     {
         return $this->client->send(
             'sendMessage',
             $message instanceof Message ? $message->toArray() : $message
         );
+    }
+
+    public function editMessage(array $params): Response
+    {
+        return $this->client->send('editMessage', $params);
+    }
+
+    public function deleteMessage(array $params): Response
+    {
+        return $this->client->send('deleteMessage', $params);
+    }
+
+    public function forwardMessage(array $params): Response
+    {
+        return $this->client->send('forwardMessage', $params);
+    }
+
+    public function copyMessage(array $params): Response
+    {
+        return $this->client->send('copyMessage', $params);
     }
 
     public function sendPhoto(Photo|array $photo): Response
@@ -108,14 +133,6 @@ class Rubika
         );
     }
 
-    public function sendVoice(Voice|array $voice): Response
-    {
-        return $this->client->send(
-            'sendVoice',
-            $voice instanceof Voice ? $voice->toArray() : $voice
-        );
-    }
-
     public function sendDocument(Document|array $document): Response
     {
         return $this->client->send(
@@ -124,4 +141,81 @@ class Rubika
         );
     }
 
+    public function sendVoice(Voice|array $voice): Response
+    {
+        return $this->client->send(
+            'sendVoice',
+            $voice instanceof Voice ? $voice->toArray() : $voice
+        );
+    }
+
+    public function sendAudio(Audio|array $audio): Response
+    {
+        return $this->client->send(
+            'sendAudio',
+            $audio instanceof Audio ? $audio->toArray() : $audio
+        );
+    }
+
+    public function sendSticker(Sticker|array $sticker): Response
+    {
+        return $this->client->send(
+            'sendSticker',
+            $sticker instanceof Sticker ? $sticker->toArray() : $sticker
+        );
+    }
+
+    public function sendAnimation(Animation|array $animation): Response
+    {
+        return $this->client->send(
+            'sendAnimation',
+            $animation instanceof Animation ? $animation->toArray() : $animation
+        );
+    }
+
+    public function sendVideoNote(VideoNote|array $videoNote): Response
+    {
+        return $this->client->send(
+            'sendVideoNote',
+            $videoNote instanceof VideoNote ? $videoNote->toArray() : $videoNote
+        );
+    }
+
+    public function sendPoll(Poll|array $poll): Response
+    {
+        return $this->client->send(
+            'sendPoll',
+            $poll instanceof Poll ? $poll->toArray() : $poll
+        );
+    }
+
+    public function getMe(): Response
+    {
+        return $this->client->send('getMe');
+    }
+
+    public function getUpdates(array $params = []): Response
+    {
+        return $this->client->send('getUpdates', $params);
+    }
+
+    public function answerCallbackQuery(array $params): Response
+    {
+        return $this->client->send('answerCallbackQuery', $params);
+    }
+
+    public function setWebhook(array $params): Response
+    {
+        return $this->client->send('setWebhook', $params);
+    }
+
+    public function deleteWebhook(): Response
+    {
+        return $this->client->send('deleteWebhook');
+    }
+
+    public function getFile(array $params): Response
+    {
+        return $this->client->send('getFile', $params);
+    }
 }
