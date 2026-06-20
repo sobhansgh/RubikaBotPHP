@@ -6,9 +6,9 @@ use Sobhansgh\Rubikabotphp\Rubika;
 
 $bot = new Rubika('token');
 
-$response = $bot->sendMessage([
-    "chat_id"=>"u0...",
-    "text"=>"سلام"
+$response = $bot->sendPhoto([
+    'chat_id'=>'...',
+    'file'=>'photo.jpg'
 ]);
 
 if($response->success())

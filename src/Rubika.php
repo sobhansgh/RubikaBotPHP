@@ -1,42 +1,108 @@
 <?php
 
-namespace RubikaBot;
+namespace Sobhansgh\Rubikabotphp;
+
+use BadMethodCallException;
+use Sobhansgh\Rubikabotphp\Http\Client;
+use Sobhansgh\Rubikabotphp\Http\Response;
+use Sobhansgh\Rubikabotphp\Types\Document;
+use Sobhansgh\Rubikabotphp\Types\Message;
+use Sobhansgh\Rubikabotphp\Types\Photo;
+use Sobhansgh\Rubikabotphp\Types\Video;
+use Sobhansgh\Rubikabotphp\Types\Voice;
 
 class Rubika
 {
-    private string $token;
+    protected Client $client;
 
-    private string $baseUrl = "https://botapi.rubika.ir/v3";
+    /**
+     * متدهایی که اجازه فراخوانی دارند.
+     * بعداً با اضافه شدن API فقط این آرایه را به‌روزرسانی می‌کنیم.
+     */
+    protected array $allowedMethods = [
+        'sendMessage',
+        'sendPhoto',
+        'sendVideo',
+        'sendVoice',
+        'sendDocument',
+        'sendFile',
+        'sendAudio',
+        'editMessage',
+        'deleteMessage',
+        'forwardMessage',
+        'copyMessage',
+        'answerCallbackQuery',
+        'setWebhook',
+        'deleteWebhook',
+        'getUpdates',
+        'getMe',
+        'getFile',
+        'sendLocation',
+        'sendContact',
+        'sendPoll'
+    ];
 
     public function __construct(string $token)
     {
-        $this->token = $token;
+        $this->client = new Client($token);
     }
 
-    private function request(string $method, array $params = [])
+    public function __call(string $method, array $arguments): Response
     {
-        $url = $this->baseUrl . "/" . $this->token . "/" . $method;
 
-        $ch = curl_init($url);
+        if (!in_array($method, $this->allowedMethods, true)) {
 
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json"
-            ],
-            CURLOPT_POSTFIELDS => json_encode($params)
-        ]);
+            throw new BadMethodCallException("Method {$method} not exists.");
 
-        $response = curl_exec($ch);
+        }
 
-        curl_close($ch);
+        return $this->client->send(
 
-        return json_decode($response, true);
+            $method,
+
+            $arguments[0] ?? []
+
+        );
+
     }
-
-    public function sendMessage(array $params)
+    public function send(Message|array $message): Response
     {
-        return $this->request("sendMessage", $params);
+        return $this->client->send(
+            'sendMessage',
+            $message instanceof Message ? $message->toArray() : $message
+        );
     }
+
+    public function sendPhoto(Photo|array $photo): Response
+    {
+        return $this->client->send(
+            'sendPhoto',
+            $photo instanceof Photo ? $photo->toArray() : $photo
+        );
+    }
+
+    public function sendVideo(Video|array $video): Response
+    {
+        return $this->client->send(
+            'sendVideo',
+            $video instanceof Video ? $video->toArray() : $video
+        );
+    }
+
+    public function sendVoice(Voice|array $voice): Response
+    {
+        return $this->client->send(
+            'sendVoice',
+            $voice instanceof Voice ? $voice->toArray() : $voice
+        );
+    }
+
+    public function sendDocument(Document|array $document): Response
+    {
+        return $this->client->send(
+            'sendDocument',
+            $document instanceof Document ? $document->toArray() : $document
+        );
+    }
+
 }

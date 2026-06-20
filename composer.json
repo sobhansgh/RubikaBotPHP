@@ -1,19 +1,16 @@
 {
     "name": "sobhansgh/rubikabotphp",
-    "description": "PHP Rubika Bot API",
+    "description": "Rubika Bot API SDK for PHP",
     "type": "library",
-    "require": {
-        "php": "8.0"
-    },
     "license": "MIT",
     "autoload": {
         "psr-4": {
             "Sobhansgh\\Rubikabotphp\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "Sobhan Ghasemi"
-        }
-    ]
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-json": "*"
+    }
 }
