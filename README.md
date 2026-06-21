@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.png" alt="RubikaBotPHP Banner" width="100%">
+<img src="https://sobhanghasemi.ir/Bots/RubikaBotPhp/RubikaBotPhp.png" alt="RubikaBotPHP Banner" width="100%">
 
 # RubikaBotPHP
 
