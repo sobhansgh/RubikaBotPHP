@@ -1,50 +1,35 @@
 <?php
 
-require 'vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Sobhansgh\Rubikabotphp\Keyboard\Button;
-use Sobhansgh\Rubikabotphp\Keyboard\InlineButton;
-use Sobhansgh\Rubikabotphp\Keyboard\InlineKeyboard;
 use Sobhansgh\Rubikabotphp\Keyboard\Keyboard;
 use Sobhansgh\Rubikabotphp\Rubika;
+use Sobhansgh\Rubikabotphp\Types\Message;
 
-$bot = new Rubika('token');
+$bot = new Rubika('YOUR_BOT_TOKEN');
+
 $keyboard = Keyboard::make()
+
     ->row(
         Button::text('ثبت نام'),
         Button::text('ورود')
     )
+
     ->row(
-        Button::contact('ارسال شماره')
+        Button::text('راهنما')
     )
+
     ->build();
 
-$inline = InlineKeyboard::make()
-    ->row(
-        InlineButton::callback('ثبت', 'register'),
-        InlineButton::callback('لغو', 'cancel')
-    )
-    ->row(
-        InlineButton::url('وبسایت', 'https://google.com')
-    )
-    ->build();
+$bot->sendMessage(
 
-$bot->sendMessage([
+    Message::make()
 
-    'chat_id'=>'chatId',
+        ->chat('CHAT_ID')
 
-    'text'=>'سلام',
+        ->text('یکی از گزینه ها را انتخاب کنید.')
 
-    'reply_markup'=>$keyboard
+        ->replyMarkup($keyboard)
 
-]);
-
-$bot->sendMessage([
-
-    'chat_id' => 'chatId',
-
-    'text' => 'سلام',
-
-    'reply_markup' => $inline
-
-]);
+);

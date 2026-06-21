@@ -1,27 +1,17 @@
-/vendor/
+* text=auto eol=lf
 
-composer.lock
+/.github export-ignore
 
-.phpunit.result.cache
+/docs export-ignore
 
-coverage/
+/examples export-ignore
 
-build/
+/tests export-ignore
 
-.idea/
+.gitignore export-ignore
 
-.vscode/
+.gitattributes export-ignore
 
-.DS_Store
+phpunit.xml export-ignore
 
-Thumbs.db
-
-.env
-
-.env.*
-
-*.log
-
-*.cache
-
-*.phar
+README_FA.md export-ignore

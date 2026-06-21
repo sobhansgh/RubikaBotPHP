@@ -1,8 +1,18 @@
 {
     "name": "sobhansgh/rubikabotphp",
     "description": "Rubika Bot API SDK for PHP",
+    "keywords":[
+        "rubika",
+        "bot",
+        "php",
+        "sdk",
+        "api",
+        "messenger"
+    ],
     "type": "library",
     "license": "MIT",
+    "minimum-stability":"stable",
+    "prefer-stable":true,
     "autoload": {
         "psr-4": {
             "Sobhansgh\\Rubikabotphp\\": "src/"
@@ -13,5 +23,26 @@
         "ext-curl": "*",
         "ext-json": "*",
       "ext-mbstring": "*"
-    }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "support":{
+        "issues":"https://github.com/Sobhansgh/Rubikabotphp/issues",
+        "source":"https://github.com/Sobhansgh/Rubikabotphp"
+    },
+    "funding":[
+        {
+            "type":"github",
+            "url":"https://github.com/sponsors/Sobhansgh"
+        }
+    ]
 }

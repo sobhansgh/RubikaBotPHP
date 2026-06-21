@@ -1,40 +1,13 @@
 <?php
 
+require __DIR__.'/../vendor/autoload.php';
+
 use Sobhansgh\Rubikabotphp\Rubika;
-use Sobhansgh\Rubikabotphp\Update\Update;
-$update = Update::fromWebhook();
 
-if ($update->isMessage()) {
+$bot = new Rubika('YOUR_BOT_TOKEN');
 
-    echo $update->text();
-
-}
-$chatId = $update->chatId();
-
-$text = $update->text();
-
-$response = $bot->getUpdates();
-
-foreach ($response->get("result") as $item) {
-
-    $update = Update::make($item);
-
-}
-
-
-$bot = new Rubika($token);
-
-$bot->webhook()->set(
-    "https://example.com/webhook.php"
+$response = $bot->webhook()->set(
+    'https://example.com/webhook.php'
 );
 
-$bot->webhook()->delete();
-
-
-$update = $bot
-    ->webhook()
-    ->update();
-
-$raw = $bot
-    ->webhook()
-    ->raw();
+print_r($response->all());

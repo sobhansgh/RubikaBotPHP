@@ -1,44 +1,45 @@
 # RubikaBotPHP
 
-Professional PHP SDK for Rubika Bot API.
+### SDK حرفه‌ای PHP برای Rubika Bot API
 
-RubikaBotPHP is a modern, lightweight and developer-friendly SDK that helps you build Rubika bots using clean, object-oriented PHP.
+RubikaBotPHP یک کتابخانه متن‌باز، سبک و مدرن برای توسعه ربات‌های روبیکا با زبان PHP است.
 
-Designed with simplicity, performance and maintainability in mind.
+هدف این پروژه ارائه یک SDK ساده، روان و حرفه‌ای مشابه TelegramBotPHP است تا توسعه‌دهندگان بتوانند بدون درگیر شدن با درخواست‌های HTTP و جزئیات API، روی منطق ربات خود تمرکز کنند.
 
 ---
 
-# Features
+# امکانات
+
+* پشتیبانی از PHP 8.1 و بالاتر
+* نصب با Composer
+* معماری PSR-4
+* کاملاً شیءگرا (Object Oriented)
+* Fluent API
+* پشتیبانی از Webhook
+* پشتیبانی از Polling
+* Router داخلی
+* مدیریت Callback
+* ساخت Keyboard
+* ساخت Inline Keyboard
+* ارسال فایل
+* مدیریت Exception
+* Helper Classes
+* ساختار ماژولار
+* توسعه آسان
+* متن‌باز (MIT)
+
+---
+
+# پیش‌نیازها
 
 * PHP 8.1+
-* PSR-4 Compatible
-* Composer Ready
-* Object-Oriented API
-* Fluent Builder Pattern
-* Webhook Support
-* Polling Support
-* Router
-* Keyboard Builder
-* Inline Keyboard Builder
-* File Upload Support
-* Exception Handling
-* Helper Classes
-* Type-safe Objects
-* Easy to Extend
-* MIT License
-
----
-
-# Requirements
-
-* PHP >= 8.1
 * Composer
-* cURL Extension
-* JSON Extension
+* افزونه CURL
+* افزونه JSON
 
 ---
 
-# Installation
+# نصب
 
 ```bash
 composer require sobhansgh/rubikabotphp
@@ -46,7 +47,7 @@ composer require sobhansgh/rubikabotphp
 
 ---
 
-# Quick Start
+# اولین ربات
 
 ```php
 use Sobhansgh\Rubikabotphp\Rubika;
@@ -55,15 +56,19 @@ use Sobhansgh\Rubikabotphp\Types\Message;
 $bot = new Rubika("YOUR_BOT_TOKEN");
 
 $bot->sendMessage(
+
     Message::make()
+
         ->chat("CHAT_ID")
-        ->text("Hello World!")
+
+        ->text("سلام روبیکا")
+
 );
 ```
 
 ---
 
-# Sending Photos
+# ارسال تصویر
 
 ```php
 use Sobhansgh\Rubikabotphp\File\InputFile;
@@ -76,44 +81,95 @@ $bot->sendPhoto(
         ->chat("CHAT_ID")
 
         ->file(
+
             InputFile::make("photo.jpg")
+
         )
 
-        ->caption("My Photo")
+        ->caption("نمونه تصویر")
 
 );
 ```
 
 ---
 
-# Keyboard
+# ارسال فایل
 
 ```php
+$bot->sendDocument(
+    ...
+);
+```
+
+---
+
+# ارسال ویدئو
+
+```php
+$bot->sendVideo(
+    ...
+);
+```
+
+---
+
+# ارسال صدا
+
+```php
+$bot->sendAudio(
+    ...
+);
+```
+
+---
+
+# ارسال Voice
+
+```php
+$bot->sendVoice(
+    ...
+);
+```
+
+---
+
+# ساخت کیبورد
+
+```php
+use Sobhansgh\Rubikabotphp\Keyboard\Keyboard;
+use Sobhansgh\Rubikabotphp\Keyboard\Button;
+
 $keyboard = Keyboard::make()
 
     ->row(
 
-        Button::text("Profile"),
+        Button::text("ثبت سفارش"),
 
-        Button::text("Settings")
+        Button::text("پروفایل")
 
     )
 
     ->row(
 
-        Button::text("Help")
+        Button::text("راهنما")
 
     )
 
     ->build();
+```
 
+---
+
+# ارسال پیام همراه کیبورد
+
+```php
 $bot->sendMessage(
 
     Message::make()
 
-        ->chat("CHAT_ID")
+        ->chat($chatId)
 
-        ->text("Select an option")
+        ->text("یکی از گزینه‌ها را انتخاب کنید.")
 
         ->replyMarkup($keyboard)
 
@@ -125,13 +181,16 @@ $bot->sendMessage(
 # Inline Keyboard
 
 ```php
+use Sobhansgh\Rubikabotphp\Keyboard\InlineKeyboard;
+use Sobhansgh\Rubikabotphp\Keyboard\InlineButton;
+
 $keyboard = InlineKeyboard::make()
 
     ->row(
 
         InlineButton::callback(
 
-            "Yes",
+            "تایید",
 
             "yes"
 
@@ -139,7 +198,7 @@ $keyboard = InlineKeyboard::make()
 
         InlineButton::callback(
 
-            "No",
+            "لغو",
 
             "no"
 
@@ -148,54 +207,6 @@ $keyboard = InlineKeyboard::make()
     )
 
     ->build();
-
-$bot->sendMessage(
-
-    Message::make()
-
-        ->chat("CHAT_ID")
-
-        ->text("Are you sure?")
-
-        ->replyMarkup($keyboard)
-
-);
-```
-
----
-
-# Webhook
-
-```php
-$bot->webhook()->set(
-
-    "https://example.com/webhook.php"
-
-);
-```
-
-Receiving Updates
-
-```php
-use Sobhansgh\Rubikabotphp\Update\Update;
-
-$update = Update::fromWebhook();
-
-echo $update->text();
-```
-
----
-
-# Polling
-
-```php
-$response = $bot->getUpdates();
-
-foreach ($response->get("result") as $item) {
-
-    // ...
-
-}
 ```
 
 ---
@@ -207,50 +218,84 @@ $bot->router()
 
     ->command("/start", function($update){
 
-        echo "Start";
+        //
 
     })
 
     ->command("/help", function($update){
 
-        echo "Help";
+        //
 
     })
 
     ->message(function($update){
 
-        echo $update->text();
+        //
 
     })
 
     ->callback(function($update){
 
-        echo $update->callbackData();
+        //
 
     })
 
     ->dispatch(
+
         Update::fromWebhook()
+
     );
 ```
 
 ---
 
-# File Upload
+# Webhook
+
+ثبت Webhook
+
+```php
+$bot->webhook()->set(
+    "https://example.com/webhook.php"
+);
+```
+
+دریافت Update
+
+```php
+$update = Update::fromWebhook();
+
+echo $update->text();
+```
+
+---
+
+# Polling
+
+```php
+$response = $bot->getUpdates();
+```
+
+---
+
+# ارسال فایل
+
+سه روش پشتیبانی می‌شود.
+
+فایل محلی
 
 ```php
 InputFile::make("photo.jpg")
 ```
 
-or
+آدرس اینترنتی
 
 ```php
 InputFile::fromUrl(
-    "https://example.com/image.jpg"
+    "https://example.com/photo.jpg"
 )
 ```
 
-or
+شناسه فایل
 
 ```php
 "FILE_ID"
@@ -258,14 +303,14 @@ or
 
 ---
 
-# Error Handling
+# مدیریت خطا
 
 ```php
-try {
+try{
 
-    $bot->sendMessage(...);
+    //
 
-} catch (ApiException $e) {
+}catch(ApiException $e){
 
     echo $e->getMessage();
 
@@ -274,61 +319,56 @@ try {
 
 ---
 
-# Project Structure
+# ساختار پروژه
 
-```
+```text
 src/
-│
-├── Exceptions/
-├── File/
-├── Helpers/
-├── Http/
-├── Keyboard/
-├── Router/
-├── Types/
-├── Update/
-├── Webhook/
-│
-├── Rubika.php
+
+Exceptions/
+
+Http/
+
+Types/
+
+Helpers/
+
+Keyboard/
+
+Router/
+
+Webhook/
+
+Update/
+
+File/
 
 examples/
 
 docs/
 
 tests/
-
-composer.json
 ```
 
 ---
 
-# Examples
+# مثال‌ها
 
-The examples directory contains:
+پوشه examples شامل نمونه‌های زیر است.
 
-* send-message.php
-* send-photo.php
-* send-document.php
-* send-video.php
-* send-audio.php
-* keyboard.php
-* inline-keyboard.php
-* webhook.php
-* router.php
-* polling.php
-
----
-
-# Documentation
-
-* README_FA.md
-* docs/
+* ارسال پیام
+* ارسال تصویر
+* ارسال فایل
+* ارسال ویدئو
+* ارسال صدا
+* Webhook
+* Polling
+* Router
+* Keyboard
+* Inline Keyboard
 
 ---
 
-# Testing
-
-Run tests
+# تست
 
 ```bash
 composer test
@@ -336,9 +376,9 @@ composer test
 
 ---
 
-# Coding Style
+# استانداردهای پروژه
 
-This package follows
+این پروژه مطابق استانداردهای زیر توسعه داده شده است.
 
 * PSR-1
 * PSR-4
@@ -346,75 +386,67 @@ This package follows
 
 ---
 
-# Contributing
+# مشارکت
 
-Contributions are welcome.
+اگر تمایل به همکاری در توسعه پروژه دارید، لطفاً فایل
 
-Please read
-
-```
 CONTRIBUTING.md
-```
 
-before opening Pull Requests.
+را مطالعه کنید.
 
 ---
 
-# Roadmap
+# نقشه راه
 
-## v1.0
+## نسخه 1.0
 
-* Core SDK
-* HTTP Client
+* هسته SDK
 * Router
 * Webhook
 * Polling
 * Keyboard
-* Inline Keyboard
-* File Upload
-* Documentation
-* Tests
+* ارسال فایل
+* مستندات
+* تست‌ها
 
-## v1.1
+---
 
-* More Rubika API methods
-* Better Validation
-* More Helper Classes
+## نسخه 1.1
 
-## v2.0
+* پوشش کامل‌تر API روبیکا
+* Helperهای بیشتر
+* اعتبارسنجی بهتر
+
+---
+
+## نسخه 2.0
 
 * Middleware
-* Events
-* Plugins
-* Cache Layer
-* Async Requests
+* Event System
+* Plugin System
+* Cache
+* Async Request
 
 ---
 
-# Changelog
+# تغییرات نسخه‌ها
 
-See
+جزئیات تغییرات هر نسخه در فایل
 
-```
 CHANGELOG.md
-```
+
+قرار می‌گیرد.
 
 ---
 
-# License
+# مجوز
 
-MIT License
-
----
-
-# Author
-
-**Sobhan Ghasemi**
-
-GitHub:
-
-https://github.com/Sobhansgh
+این پروژه تحت مجوز MIT منتشر می‌شود.
 
 ---
 
-If you like this project, don't forget to ⭐ the repository.
+# توسعه‌دهنده
+
+**سبحان قاسمی**
+
+اگر این پروژه برای شما مفید بود، لطفاً در GitHub به آن ⭐ Star بدهید تا از ادامه توسعه آن حمایت کنید.

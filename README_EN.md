@@ -1,62 +1,44 @@
-<div align="center">
-
-<img src="assets/banner.png" alt="RubikaBotPHP Banner" width="100%">
-
 # RubikaBotPHP
 
-### Professional PHP SDK for Rubika Bot API
+Professional PHP SDK for Rubika Bot API.
 
-A modern, lightweight, PSR-4 compliant PHP SDK for building Rubika bots.
+RubikaBotPHP is a modern, lightweight and developer-friendly SDK that helps you build Rubika bots using clean, object-oriented PHP.
 
-[![PHP Version](https://img.shields.io/badge/PHP-8.1+-777BB4.svg?style=for-the-badge\&logo=php)]()
-[![License](https://img.shields.io/github/license/Sobhansgh/Rubikabotphp?style=for-the-badge)]()
-[![Latest Release](https://img.shields.io/github/v/release/Sobhansgh/Rubikabotphp?style=for-the-badge)]()
-[![Packagist](https://img.shields.io/packagist/v/sobhansgh/rubikabotphp?style=for-the-badge)]()
-[![Downloads](https://img.shields.io/packagist/dt/sobhansgh/rubikabotphp?style=for-the-badge)]()
-[![Stars](https://img.shields.io/github/stars/Sobhansgh/Rubikabotphp?style=for-the-badge)]()
-[![Issues](https://img.shields.io/github/issues/Sobhansgh/Rubikabotphp?style=for-the-badge)]()
+Designed with simplicity, performance and maintainability in mind.
 
 ---
 
-### 🌍 Documentation
+# Features
 
-🇺🇸 **English**
-~~~~
-➡️ **[README_EN.md](README_EN.md)**
-~~~~
----
-
-🇮🇷 **فارسی**
-
-➡️ **[README_FA.md](README_FA.md)**
-
----
-
-</div>
-
-# ✨ Features
-
-* Modern PHP 8.1+
+* PHP 8.1+
+* PSR-4 Compatible
 * Composer Ready
-* PSR-4 Autoload
-* Object Oriented
-* Type Safe
+* Object-Oriented API
+* Fluent Builder Pattern
 * Webhook Support
 * Polling Support
 * Router
-* File Upload
 * Keyboard Builder
 * Inline Keyboard Builder
-* Callback Query
+* File Upload Support
 * Exception Handling
 * Helper Classes
-* Fluent API
-* Lightweight
-* Open Source
+* Type-safe Objects
+* Easy to Extend
+* MIT License
 
 ---
 
-# 📦 Installation
+# Requirements
+
+* PHP >= 8.1
+* Composer
+* cURL Extension
+* JSON Extension
+
+---
+
+# Installation
 
 ```bash
 composer require sobhansgh/rubikabotphp
@@ -64,7 +46,7 @@ composer require sobhansgh/rubikabotphp
 
 ---
 
-# 🚀 Quick Example
+# Quick Start
 
 ```php
 use Sobhansgh\Rubikabotphp\Rubika;
@@ -75,88 +57,278 @@ $bot = new Rubika("YOUR_BOT_TOKEN");
 $bot->sendMessage(
     Message::make()
         ->chat("CHAT_ID")
-        ->text("Hello Rubika!")
+        ->text("Hello World!")
 );
 ```
 
 ---
 
-# 📁 Project Structure
+# Sending Photos
+
+```php
+use Sobhansgh\Rubikabotphp\File\InputFile;
+use Sobhansgh\Rubikabotphp\Types\Photo;
+
+$bot->sendPhoto(
+
+    Photo::make()
+
+        ->chat("CHAT_ID")
+
+        ->file(
+            InputFile::make("photo.jpg")
+        )
+
+        ->caption("My Photo")
+
+);
+```
+
+---
+
+# Keyboard
+
+```php
+$keyboard = Keyboard::make()
+
+    ->row(
+
+        Button::text("Profile"),
+
+        Button::text("Settings")
+
+    )
+
+    ->row(
+
+        Button::text("Help")
+
+    )
+
+    ->build();
+
+$bot->sendMessage(
+
+    Message::make()
+
+        ->chat("CHAT_ID")
+
+        ->text("Select an option")
+
+        ->replyMarkup($keyboard)
+
+);
+```
+
+---
+
+# Inline Keyboard
+
+```php
+$keyboard = InlineKeyboard::make()
+
+    ->row(
+
+        InlineButton::callback(
+
+            "Yes",
+
+            "yes"
+
+        ),
+
+        InlineButton::callback(
+
+            "No",
+
+            "no"
+
+        )
+
+    )
+
+    ->build();
+
+$bot->sendMessage(
+
+    Message::make()
+
+        ->chat("CHAT_ID")
+
+        ->text("Are you sure?")
+
+        ->replyMarkup($keyboard)
+
+);
+```
+
+---
+
+# Webhook
+
+```php
+$bot->webhook()->set(
+
+    "https://example.com/webhook.php"
+
+);
+```
+
+Receiving Updates
+
+```php
+use Sobhansgh\Rubikabotphp\Update\Update;
+
+$update = Update::fromWebhook();
+
+echo $update->text();
+```
+
+---
+
+# Polling
+
+```php
+$response = $bot->getUpdates();
+
+foreach ($response->get("result") as $item) {
+
+    // ...
+
+}
+```
+
+---
+
+# Router
+
+```php
+$bot->router()
+
+    ->command("/start", function($update){
+
+        echo "Start";
+
+    })
+
+    ->command("/help", function($update){
+
+        echo "Help";
+
+    })
+
+    ->message(function($update){
+
+        echo $update->text();
+
+    })
+
+    ->callback(function($update){
+
+        echo $update->callbackData();
+
+    })
+
+    ->dispatch(
+        Update::fromWebhook()
+    );
+```
+
+---
+
+# File Upload
+
+```php
+InputFile::make("photo.jpg")
+```
+
+or
+
+```php
+InputFile::fromUrl(
+    "https://example.com/image.jpg"
+)
+```
+
+or
+
+```php
+"FILE_ID"
+```
+
+---
+
+# Error Handling
+
+```php
+try {
+
+    $bot->sendMessage(...);
+
+} catch (ApiException $e) {
+
+    echo $e->getMessage();
+
+}
+```
+
+---
+
+# Project Structure
 
 ```
-Rubikabotphp/
-
 src/
+│
+├── Exceptions/
+├── File/
+├── Helpers/
+├── Http/
+├── Keyboard/
+├── Router/
+├── Types/
+├── Update/
+├── Webhook/
+│
+├── Rubika.php
+
 examples/
+
 docs/
+
 tests/
 
 composer.json
-
-README.md
-README_EN.md
-README_FA.md
-
-LICENSE
-
-CHANGELOG.md
-
-CONTRIBUTING.md
 ```
 
 ---
 
-# 📚 Examples
+# Examples
 
-Inside the **examples/** directory you will find complete examples for:
+The examples directory contains:
 
-* Send Message
-* Send Photo
-* Send Document
-* Send Video
-* Send Audio
-* Keyboard
-* Inline Keyboard
-* Router
-* Webhook
-* Polling
-
----
-
-# ⚙ Requirements
-
-* PHP 8.1+
-* Composer
-* CURL Extension
-* JSON Extension
+* send-message.php
+* send-photo.php
+* send-document.php
+* send-video.php
+* send-audio.php
+* keyboard.php
+* inline-keyboard.php
+* webhook.php
+* router.php
+* polling.php
 
 ---
 
-# 📖 Documentation
+# Documentation
 
-Complete documentation is available in:
-
-* README_EN.md
 * README_FA.md
 * docs/
 
 ---
 
-# 🤝 Contributing
+# Testing
 
-Contributions are welcome.
-
-Please read:
-
-```
-CONTRIBUTING.md
-```
-
-before submitting Pull Requests.
-
----
-
-# 🧪 Testing
+Run tests
 
 ```bash
 composer test
@@ -164,32 +336,52 @@ composer test
 
 ---
 
-# 🗺 Roadmap
+# Coding Style
 
-## Version 1.0
+This package follows
 
+* PSR-1
+* PSR-4
+* PSR-12
+
+---
+
+# Contributing
+
+Contributions are welcome.
+
+Please read
+
+```
+CONTRIBUTING.md
+```
+
+before opening Pull Requests.
+
+---
+
+# Roadmap
+
+## v1.0
+
+* Core SDK
 * HTTP Client
 * Router
 * Webhook
 * Polling
-* File Upload
 * Keyboard
 * Inline Keyboard
-* Helpers
-* Examples
+* File Upload
+* Documentation
 * Tests
 
----
+## v1.1
 
-## Version 1.1
-
-* More API Coverage
+* More Rubika API methods
 * Better Validation
 * More Helper Classes
 
----
-
-## Version 2.0
+## v2.0
 
 * Middleware
 * Events
@@ -199,34 +391,30 @@ composer test
 
 ---
 
-# ❤️ Support
+# Changelog
 
-If you like this project please
+See
 
-⭐ Star the repository
-
-🐞 Report bugs
-
-💡 Suggest features
-
-🤝 Contribute
+```
+CHANGELOG.md
+```
 
 ---
 
-# 📄 License
+# License
 
-This project is licensed under the MIT License.
-
-See the **LICENSE** file for more information.
+MIT License
 
 ---
 
-<div align="center">
+# Author
 
-Made with ❤️ by
+**Sobhan Ghasemi**
 
-## Sobhan Ghasemi
+GitHub:
 
-If this project helps you, please give it a ⭐
+https://github.com/Sobhansgh
 
-</div>
+---
+
+If you like this project, don't forget to ⭐ the repository.

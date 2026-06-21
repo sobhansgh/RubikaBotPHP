@@ -1,17 +1,16 @@
 <?php
 
-require 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Sobhansgh\Rubikabotphp\Rubika;
+use Sobhansgh\Rubikabotphp\Types\Message;
 
-$bot = new Rubika('token');
+$bot = new Rubika('YOUR_BOT_TOKEN');
 
-$response = $bot->sendMessage([
-    "chat_id"=>"u0...",
-    "text"=>"سلام"
-]);
+$response = $bot->sendMessage(
+    Message::make()
+        ->chat('CHAT_ID')
+        ->text('سلام از RubikaBotPHP')
+);
 
-if($response->success())
-{
-    echo "Done";
-}
+print_r($response->all());
