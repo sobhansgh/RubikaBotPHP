@@ -21,9 +21,9 @@ A modern, lightweight, PSR-4 compliant PHP SDK for building Rubika bots.
 ### 🌍 Documentation
 
 🇺🇸 **English**
-~~~~
+
 ➡️ **[README_EN.md](README_EN.md)**
-~~~~
+
 ---
 
 🇮🇷 **فارسی**
