@@ -8,11 +8,13 @@ use Sobhansgh\Rubikabotphp\Types\Photo;
 
 $bot = new Rubika('YOUR_BOT_TOKEN');
 
-$response = $bot->sendPhoto(
+$response = $bot->sendImage(
     Photo::make()
         ->chat('CHAT_ID')
-        ->file(InputFile::make(__DIR__.'/photo.jpg'))
+        ->file(
+            InputFile::make(__DIR__.'/photo.jpg')
+        )
         ->caption('نمونه تصویر')
 );
 
-print_r($response->all());
+var_dump($response->toArray());

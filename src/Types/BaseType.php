@@ -25,9 +25,18 @@ abstract class BaseType
         return $this;
     }
 
-    public function replyMarkup(array $markup): static
+    public function chatKeypad(array $keyboard): static
     {
-        $this->data['reply_markup'] = $markup;
+        $this->data['chat_keypad'] = $keyboard;
+
+        $this->data['chat_keypad_type'] = 'New';
+
+        return $this;
+    }
+
+    public function inlineKeypad(array $keyboard): static
+    {
+        $this->data['inline_keypad'] = $keyboard;
 
         return $this;
     }

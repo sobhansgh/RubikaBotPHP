@@ -8,4 +8,8 @@ $bot = new Rubika('YOUR_BOT_TOKEN');
 
 $response = $bot->getUpdates();
 
-print_r($response->all());
+foreach ($response->get('result', []) as $update) {
+
+    print_r($update);
+
+}

@@ -10,7 +10,7 @@ $bot = new Rubika('YOUR_BOT_TOKEN');
 $response = $bot->sendMessage(
     Message::make()
         ->chat('CHAT_ID')
-        ->text('سلام از RubikaBotPHP')
+        ->text('سلام روبیکا ❤️')
 );
 
-print_r($response->all());
+var_dump($response->toArray());

@@ -41,13 +41,12 @@ class Keyboard
     public function build(): array
     {
         return [
-
-            'keyboard' => $this->rows,
-
-            'resize_keyboard' => $this->resizeKeyboard ?? true,
-
-            'one_time_keyboard' => $this->oneTimeKeyboard ?? false
-
+            'chat_keypad' => [
+                'rows' => array_map(fn ($buttons) => [
+                    'buttons' => $buttons,
+                ], $this->rows),
+            ],
+            'chat_keypad_type' => 'New',
         ];
     }
 }

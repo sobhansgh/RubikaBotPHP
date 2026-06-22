@@ -12,24 +12,19 @@ $bot = new Rubika('YOUR_BOT_TOKEN');
 $keyboard = Keyboard::make()
 
     ->row(
-        Button::text('ثبت نام'),
-        Button::text('ورود')
+        Button::text('سفارش'),
+        Button::text('پروفایل')
     )
 
     ->row(
         Button::text('راهنما')
     )
-
     ->build();
 
 $bot->sendMessage(
-
     Message::make()
-
         ->chat('CHAT_ID')
-
-        ->text('یکی از گزینه ها را انتخاب کنید.')
-
-        ->replyMarkup($keyboard)
+        ->text('یکی از گزینه‌ها را انتخاب کنید.')
+        ->chatKeypad($keyboard)
 
 );

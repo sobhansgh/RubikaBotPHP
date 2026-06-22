@@ -21,7 +21,9 @@ class InlineKeyboard
 
         }
 
-        $this->rows[] = $row;
+        $this->rows[] = [
+            'buttons' => $row,
+        ];
 
         return $this;
     }
@@ -29,9 +31,9 @@ class InlineKeyboard
     public function build(): array
     {
         return [
-
-            'inline_keyboard' => $this->rows
-
+            'inline_keypad' => [
+                'rows' => $this->rows,
+            ],
         ];
     }
 }

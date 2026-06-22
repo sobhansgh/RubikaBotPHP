@@ -115,7 +115,7 @@ $bot->sendMessage(
 
         ->text("Select an option")
 
-        ->replyMarkup($keyboard)
+        ->chatKeypad($keyboard)
 
 );
 ```
@@ -157,7 +157,7 @@ $bot->sendMessage(
 
         ->text("Are you sure?")
 
-        ->replyMarkup($keyboard)
+        ->chatKeypad($keyboard)
 
 );
 ```

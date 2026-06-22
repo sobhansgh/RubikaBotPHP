@@ -28,7 +28,7 @@ class Rubika
      */
     protected array $allowedMethods = [
         'sendMessage',
-        'sendPhoto',
+        'sendImage',
         'sendVideo',
         'sendVoice',
         'sendDocument',
@@ -117,12 +117,20 @@ class Rubika
         return $this->client->send('copyMessage', $params);
     }
 
-    public function sendPhoto(Photo|array $photo): Response
+    public function sendImage(Photo|array $image): Response
     {
         return $this->client->send(
-            'sendPhoto',
-            $photo instanceof Photo ? $photo->toArray() : $photo
+            'sendImage',
+            $image instanceof Photo ? $image->toArray() : $image
         );
+    }
+
+    /**
+     * @deprecated use sendImage()
+     */
+    public function sendPhoto(Photo|array $photo): Response
+    {
+        return $this->sendImage($photo);
     }
 
     public function sendVideo(Video|array $video): Response

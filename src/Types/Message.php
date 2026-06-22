@@ -17,4 +17,5 @@ class Message extends BaseType
 
         return $this;
     }
+
 }

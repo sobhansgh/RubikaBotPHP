@@ -10,7 +10,7 @@ class Photo extends BaseType
         string|InputFile $photo
     ): static
     {
-        $this->data['photo'] = $photo;
+        $this->data['file'] = $photo;
 
         return $this;
     }

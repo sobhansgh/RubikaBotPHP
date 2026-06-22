@@ -10,22 +10,16 @@ use Sobhansgh\Rubikabotphp\Types\Message;
 $bot = new Rubika('YOUR_BOT_TOKEN');
 
 $keyboard = InlineKeyboard::make()
-
     ->row(
-        InlineButton::callback('تایید','yes'),
-        InlineButton::callback('لغو','no')
+        InlineButton::callback('تایید', 'ok'),
+        InlineButton::callback('لغو', 'cancel')
     )
-
     ->build();
 
 $bot->sendMessage(
-
     Message::make()
-
         ->chat('CHAT_ID')
-
-        ->text('آیا تایید می‌کنید؟')
-
-        ->replyMarkup($keyboard)
+        ->text('آیا مطمئن هستید؟')
+        ->inlineKeypad($keyboard)
 
 );

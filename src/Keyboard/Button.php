@@ -11,7 +11,8 @@ class Button
         $button = new self();
 
         $button->button = [
-            'text' => $text
+            'button_text' => $text,
+            'type' => 'Simple'
         ];
 
         return $button;

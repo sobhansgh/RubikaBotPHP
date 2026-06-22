@@ -171,7 +171,7 @@ $bot->sendMessage(
 
         ->text("یکی از گزینه‌ها را انتخاب کنید.")
 
-        ->replyMarkup($keyboard)
+        ->chatKeypad($keyboard)
 
 );
 ```

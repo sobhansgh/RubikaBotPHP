@@ -11,11 +11,9 @@ class InlineButton
         $button = new self();
 
         $button->button = [
-
-            'text' => $text,
-
-            'callback_data' => $data
-
+            'button_text' => $text,
+            'button_id'   => $data,
+            'type'        => 'Simple',
         ];
 
         return $button;
@@ -26,11 +24,9 @@ class InlineButton
         $button = new self();
 
         $button->button = [
-
-            'text' => $text,
-
-            'url' => $url
-
+            'button_text' => $text,
+            'button_url'  => $url,
+            'type'        => 'Link',
         ];
 
         return $button;
