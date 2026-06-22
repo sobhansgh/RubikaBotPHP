@@ -41,12 +41,9 @@ class Keyboard
     public function build(): array
     {
         return [
-            'chat_keypad' => [
-                'rows' => array_map(fn ($buttons) => [
-                    'buttons' => $buttons,
-                ], $this->rows),
-            ],
-            'chat_keypad_type' => 'New',
+            'rows' => array_map(fn ($buttons) => [
+                'buttons' => $buttons,
+            ], $this->rows),
         ];
     }
 }

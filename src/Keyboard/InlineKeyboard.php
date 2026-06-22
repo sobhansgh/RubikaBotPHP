@@ -31,9 +31,7 @@ class InlineKeyboard
     public function build(): array
     {
         return [
-            'inline_keypad' => [
-                'rows' => $this->rows,
-            ],
+            'rows' => $this->rows,
         ];
     }
 }

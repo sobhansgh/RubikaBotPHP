@@ -28,16 +28,13 @@ abstract class BaseType
     public function chatKeypad(array $keyboard): static
     {
         $this->data['chat_keypad'] = $keyboard;
-
         $this->data['chat_keypad_type'] = 'New';
-
         return $this;
     }
 
     public function inlineKeypad(array $keyboard): static
     {
         $this->data['inline_keypad'] = $keyboard;
-
         return $this;
     }
 
